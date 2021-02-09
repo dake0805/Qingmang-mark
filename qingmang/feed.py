@@ -1,19 +1,60 @@
+import xml.etree.ElementTree as ET
+
 import feedparser
+import html2text
+from utils import *
+from qingmang.mark import Mark
 
 
-def update_feed(feed_url, latest_note_time):
+def update_feed(feed_url, last_time_str):
     rss_d = feedparser.parse(feed_url)
-    notes = rss_d.entries
+    marks = rss_d.entries
 
-    for i in range(len(notes)):
-        if old_note_link == notes[i]['guid']:
-            notes = notes[0:i]
+    for i in range(len(marks)):
+        if has_feed_before(marks[i], last_time_str):
+            marks = marks[0:i]
             break
-    if len(notes) == 0:
+    if len(marks) == 0:
         return
-    db_update_feed(chat_id, notes[0]['guid'])
-    rss_mem_flash()
 
-    # send message
-    for note in notes[::-1]:
-        send_message(context, chat_id, note)
+    mark_list = []
+
+    for mark in marks[::-1]:
+        mark_list.append(parse(mark))
+    return mark_list, marks[0]['published']  # todo last update time
+
+
+def has_feed_before(mark_xml, last_time_str):
+    current_mark_time = str2datetime(mark_xml['published'])
+    last_time = str2datetime(last_time_str)
+    return current_mark_time <= last_time
+
+
+# if old_note_link == notes[i]['guid']:
+
+
+def parse(mark_xml):
+    page_title = mark_xml['title']
+    page_url = mark_xml['link']
+    mark_content, mark_note = parse_mark_note(mark_xml['description'])
+    return Mark(page_url, page_title, mark_content, mark_note)
+
+
+def parse_mark_note(xml):
+    xml = "<root>" + xml + "</root>"
+    tree = ET.ElementTree(ET.fromstring(xml, parser=ET.XMLParser(encoding='utf-8')))
+    mark_content = x2t(tree.findall('./div')[0])
+    mark_note = x2t(tree.findall('./div')[1])
+    return mark_content, mark_note
+
+
+# todo
+def x2t(xml):
+    xml_str = ET.tostring(xml, encoding="utf-8")
+    return str.strip(html2text.html2text(xml_str.decode("utf-8")))
+
+
+if __name__ == '__main__':
+    a, b = update_feed("https://qingmang.me/users/37771580/feed/?secret=2c2ca3e2684411ebbac900163e2eaa9d",
+                       "Mon, 08 Feb 2021 16:32:03 +0000")
+    print()

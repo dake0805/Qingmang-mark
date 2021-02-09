@@ -26,11 +26,10 @@ def add(update, context):
         raise
 
     db_save(chat_id, feed_link,
-            str(rss_d.entries[0]['guid']))
+            str(rss_d.entries[0]['published']))
     rss_mem_flash()
     update.effective_message.reply_text(
         "added \nTITLE: %s\nRSS: %s" % (context.args[0], context.args[1]))
-
 
 
 def help(update, context):

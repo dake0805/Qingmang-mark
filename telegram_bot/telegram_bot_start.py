@@ -2,8 +2,8 @@ import os
 from telegram.ext import Updater, CommandHandler
 
 from config import *
-from command_handler import *
-from feed_monitor import rss_monitor
+from command import *
+from telegram_bot.feed_monitor import rss_monitor
 from repo import *
 
 
@@ -36,8 +36,8 @@ def init_db():
 
 if __name__ == '__main__':
     set_proxy()
-    init_db()
     updater = add_tg_method()
     updater.start_polling()
     updater.idle()
+    init_db()
     conn.close()
