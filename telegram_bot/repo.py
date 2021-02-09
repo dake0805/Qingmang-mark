@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect('config/rss.db', check_same_thread=False)
+conn = sqlite3.connect('_database/telegram_bot.db', check_same_thread=False)
 c = conn.cursor()
 
 # [0]: RSS feed 的链接

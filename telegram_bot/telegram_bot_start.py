@@ -1,7 +1,7 @@
 import os
 from telegram.ext import Updater, CommandHandler
 
-from config import token
+from config import *
 from command_handler import *
 from feed_monitor import rss_monitor
 from repo import *
@@ -16,11 +16,9 @@ def add_tg_method():
     updater = Updater(token=token, use_context=True)
     dp = updater.dispatcher
 
-    dp.add_handler(CommandHandler("add", cmd_rss_add))
-    dp.add_handler(CommandHandler("help", cmd_help))
-    dp.add_handler(CommandHandler("start", cmd_help))
-    # dp.add_handler(CommandHandler("list", cmd_rss_list))
-    # dp.add_handler(CommandHandler("remove", cmd_rss_remove))
+    dp.add_handler(CommandHandler("add", add))
+    dp.add_handler(CommandHandler("help", help))
+    dp.add_handler(CommandHandler("start", help))
 
     updater.job_queue.run_repeating(rss_monitor, delay)
 
@@ -28,7 +26,7 @@ def add_tg_method():
 
 
 def init_db():
-    # try to create a database if missing
+    # try to create a _database if missing
     try:
         init_sqlite_data()
     except sqlite3.OperationalError:

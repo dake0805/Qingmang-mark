@@ -2,7 +2,7 @@ import feedparser
 import html
 
 from config import *
-from repo import *
+from telegram_bot.repo import *
 import xml.etree.ElementTree as ET
 import html2text
 
@@ -12,7 +12,7 @@ def rss_monitor(context):
         old_note_link = feed_data[1]
         rss_d = feedparser.parse(feed_data[0])
         notes = rss_d.entries
-        # tmp()
+
         for i in range(len(notes)):
             if old_note_link == notes[i]['guid']:
                 notes = notes[0:i]
