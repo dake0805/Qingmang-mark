@@ -20,6 +20,10 @@ API 示例: https://qingmang.me/users/11/feed/
 
 启用 Telegram BOT 后，输入命令 `/flomo 轻芒API FlomoAPI`，注册到任务队列。
 
+## 部署使用
+
+TODO
+
 ## 配置
 
 程序相关配置主要位于 `config.py`
