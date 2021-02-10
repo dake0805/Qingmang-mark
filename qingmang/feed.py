@@ -6,6 +6,8 @@ from utils import *
 from qingmang.mark import Mark
 
 
+# 处理 rss 里的每条笔记内容格式
+
 def update_feed(feed_url, last_time_str):
     rss_d = feedparser.parse(feed_url)
     marks = rss_d.entries
@@ -15,7 +17,7 @@ def update_feed(feed_url, last_time_str):
             marks = marks[0:i]
             break
     if len(marks) == 0:
-        return
+        return None, None
 
     mark_list = []
 
@@ -50,8 +52,10 @@ def parse_mark_note(xml):
 
 # todo
 def x2t(xml):
-    xml_str = ET.tostring(xml, encoding="utf-8")
-    return str.strip(html2text.html2text(xml_str.decode("utf-8")))
+    xml_str = ET.tostring(xml, encoding="utf-8").decode("utf-8")
+    xml_str = xml_str.replace('<blockquote>', '<p>')
+    xml_str = xml_str.replace('</blockquote>', '</p>')
+    return str.strip(html2text.html2text(xml_str))
 
 
 if __name__ == '__main__':

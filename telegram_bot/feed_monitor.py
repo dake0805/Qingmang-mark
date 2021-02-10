@@ -7,16 +7,20 @@ from telegram_bot.repo import *
 
 def rss_monitor(context):
     # todo
-    rss_mem_flash()
-    for chat_id, feed_data in rss_memcache_dict.items():
-        old_update_time = feed_data[1]
-        marks, new_update_time = update_feed(feed_data[0], old_update_time)
+    users = db_load_tg_users()
+    for u in users:
+        old_update_time = u.last_update_time
+        marks, new_update_time = update_feed(u.feed_url, old_update_time)
 
-        db_update_feed(chat_id, new_update_time)
+        if (marks is None) | (new_update_time is None):
+            # no updates
+            return
+
+        db_update_feed(u.chat_id, new_update_time)
 
         # send message
         for mark in marks:
-            send_message(context, chat_id, mark)
+            send_message(context, u.chat_id, mark)
 
 
 def send_message(context, chat_id, mark):

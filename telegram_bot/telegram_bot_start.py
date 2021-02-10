@@ -7,13 +7,8 @@ from telegram_bot.feed_monitor import rss_monitor
 from repo import *
 
 
-def set_proxy():
-    os.environ["HTTPS_PROXY"] = "http://127.0.0.1:7890"
-    os.environ["HTTPS_PROXY"] = "http://127.0.0.1:7890"
-
-
 def add_tg_method():
-    updater = Updater(token=token, use_context=True)
+    updater = Updater(token=token, use_context=True, request_kwargs=REQUEST_KWARGS)
     dp = updater.dispatcher
 
     dp.add_handler(CommandHandler("add", add))
@@ -31,13 +26,11 @@ def init_db():
         init_sqlite_data()
     except sqlite3.OperationalError:
         pass
-    rss_mem_flash()
 
 
 if __name__ == '__main__':
-    set_proxy()
+    init_db()
     updater = add_tg_method()
     updater.start_polling()
     updater.idle()
-    init_db()
     conn.close()
