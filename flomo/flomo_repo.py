@@ -6,13 +6,13 @@ conn = sqlite3.connect("""../db/flomo.db""", check_same_thread=False)
 c = conn.cursor()
 
 
-def init_sqlite_data():
+def init_flomo_data():
     c.execute('''CREATE TABLE flomo (flomo_api text, feed_url text, last_time text)''')
     conn.commit()
 
 
 def db_load_flomo_users():
-    c.execute('SELECT * FROM flomo_api')
+    c.execute('SELECT * FROM flomo')
     rows = c.fetchall()
     list = []
     for row in rows:

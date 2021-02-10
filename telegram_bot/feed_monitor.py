@@ -1,11 +1,10 @@
 import html
 
-from config import *
 from qingmang.feed import update_feed
-from telegram_bot.repo import *
+from telegram_bot.tg_repo import *
 
 
-def rss_monitor(context):
+def tg_massage_monitor(context):
     # todo
     users = db_load_tg_users()
     for u in users:
@@ -24,21 +23,7 @@ def rss_monitor(context):
 
 
 def send_message(context, chat_id, mark):
-    page_title = mark.page_title
-    page_link = mark.page_url
-    mark_content = mark.mark_content
-    mark_note = mark.mark_note
-    if len(mark_content) == 0 & len(mark_note) == 0:
-        text = message_template_3 % (page_link, page_title
-                                     )
-    elif len(mark_note) == 0:
-        text = message_template_2 % (page_link, page_title, mark_content
-                                     )
-    else:
-        text = message_template_1 % (page_link, page_title,
-                                     mark_content,
-                                     mark_note
-                                     )
+    text = mark.text_telegram()
     context.bot.send_message(chat_id=chat_id,
                              parse_mode='HTML',
                              text=text
@@ -47,3 +32,5 @@ def send_message(context, chat_id, mark):
 
 def telegram_reserve_char_replace(text):
     return html.escape(text)
+
+

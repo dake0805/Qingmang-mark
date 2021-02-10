@@ -1,5 +1,6 @@
-from telegram_bot.repo import *
+from telegram_bot.tg_repo import *
 from qingmang.first import *
+from flomo.flomo import add_user
 
 
 def add(update, context):
@@ -7,9 +8,9 @@ def add(update, context):
     feed_link = context.args[0]
     try:
         last_update_time = add_feed(feed_link)
-    except Exception:
+    except:
         update.effective_message.reply_text(
-            "ERROR: The format needs to be: /add http://www.URL.com")
+            "error @ add()")
         return
 
     db_save(chat_id, feed_link, last_update_time)
@@ -17,11 +18,24 @@ def add(update, context):
         "added")
 
 
+def flomo(update, context):
+    feed_link = context.args[0]
+    flomo_api = context.args[1]
+    try:
+        if flomo_api.startswith('https://flomoapp.com/iwh/'):
+            add_user(flomo_api, feed_link)
+        else:
+            raise Exception
+    except:
+        update.effective_message.reply_text(
+            "error @ flomo()")
+
+
 def help(update, context):
     text = """
 轻芒杂志马克 Telegram bot
 三十分钟更新一次
-添加订阅：
-/add https://qingmang.me/users/your_secret
+添加订阅: /add 轻芒API
+自动同步到 flomo: /flomo 轻芒API FlomoAPI 
     """
     update.effective_message.reply_text(text, disable_web_page_preview=True)

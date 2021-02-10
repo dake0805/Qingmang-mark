@@ -1,10 +1,11 @@
-import os
 from telegram.ext import Updater, CommandHandler
 
+from telegram_bot.command import *
 from config import *
-from command import *
-from telegram_bot.feed_monitor import rss_monitor
-from repo import *
+from flomo.flomo_repo import init_flomo_data
+from flomo.task import flomo_monitor
+from telegram_bot.tg_repo import *
+from telegram_bot.feed_monitor import tg_massage_monitor
 
 
 def add_tg_method():
@@ -14,8 +15,9 @@ def add_tg_method():
     dp.add_handler(CommandHandler("add", add))
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("start", help))
-
-    updater.job_queue.run_repeating(rss_monitor, delay)
+    dp.add_handler(CommandHandler("flomo", flomo))
+    updater.job_queue.run_repeating(tg_massage_monitor, delay)
+    updater.job_queue.run_repeating(flomo_monitor, delay)
 
     return updater
 
@@ -24,6 +26,7 @@ def init_db():
     # try to create a _database if missing
     try:
         init_sqlite_data()
+        init_flomo_data()
     except sqlite3.OperationalError:
         pass
 

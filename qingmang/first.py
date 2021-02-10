@@ -2,21 +2,19 @@
 import feedparser
 
 
-# todo
 def add_feed(feed_url):
-    # try if there are 2 arguments passed
     try:
         feed_url
     except IndexError:
         raise Exception()
 
-    # try if the url is a valid RSS feed
     try:
-        rss_d = feedparser.parse(feed_url)
-        rss_d.entries[0]['title']
+        if feed_url.startswith("https://qingmang.me/users/"):
+            rss_d = feedparser.parse(feed_url)
+            rss_d.entries[0]['title']
+        else:
+            raise
     except IndexError:
         raise
 
     return rss_d.entries[0]['published']
-
-# rss_d.entries[0]['published'])

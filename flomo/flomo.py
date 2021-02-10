@@ -1,16 +1,17 @@
 import requests
 
 from qingmang.mark import Mark
-from repo import *
+from flomo.flomo_repo import *
 from config import *
+from qingmang.first import *
 
 
 def add_user(flomo_api, feed_url):
-
+    last_update_time = add_feed(feed_url)
+    db_save(flomo_api, feed_url, last_update_time)
 
 
 def send_to_flomo(flomo_api, mark: Mark):
-    text = message_template_flomo % (mark.page_title, mark.page_url,
-                                     mark.mark_content, mark.mark_note)
+    text = mark.text_flomo()
     data = {'content': text}
     r = requests.post(flomo_api, data)
