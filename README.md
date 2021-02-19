@@ -19,7 +19,7 @@ API 示例: https://qingmang.me/users/11/feed/
 ## 使用
 
 1. `python --version` 检查 Python 3 版本环境；
-2. 通过`pip`根据`requirements.txt`安装相关依赖；
+2. 使用`pip`根据`requirements.txt`安装相关依赖 `pip install -r requirements.txt`；
 3. 如果第一次使用，项目目录下需要手动创建 `db` 文件夹；
 4. 根据[配置](#配置)设置自己的 `flomo_api` 和 `qingmang_api`；
 5. `python console_start.py`
@@ -36,4 +36,4 @@ API 示例: https://qingmang.me/users/11/feed/
 
 
 ## 已知 bug
-
+对两个 API 的正确检查稍有问题。如果添加了错误的 API，删除 `db` 文件夹下的 `flomo.db` 数据文件。
