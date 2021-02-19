@@ -4,6 +4,10 @@
 
 API 示例: https://qingmang.me/users/11/feed/
 
+## 新版本
+Telegram BOT 暂不可用，更容易的到同步 FLOMO
+[查看文档及使用](https://github.com/dake0805/Qingmang-mark/tree/flomo_only)
+
 ## 环境
 
 `python 3`
