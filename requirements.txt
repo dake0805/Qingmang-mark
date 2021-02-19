@@ -1,4 +1,5 @@
 feedparser
-python-telegram-bot
+
 html2text
 requests
+schedule

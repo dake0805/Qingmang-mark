@@ -4,29 +4,33 @@
 
 API 示例: https://qingmang.me/users/11/feed/
 
+## 当前版本
+
+当前版本特性：
+
+- 简单配置，仅限一个人使用
+- 可用 QingMang -> Flomo
+- Telegram BOT 不可用
+
 ## 环境
 
 `python 3`
 
-## Telegram BOT
+## 使用
 
-定时由 Telegram BOT 把新的马克内容发送到 Telegram 消息。
-
-<img src="README.assets/image-20210210151332862.png" alt="image-20210210151332862" style="zoom:50%;" />
-
-## FLOMO
-
-同步到 Flomo 在当前版本需要配置 Telegram BOT
-
-启用 Telegram BOT 后，输入命令 `/flomo 轻芒API FlomoAPI`，注册到任务队列。
+1. `python --version` 检查 Python 3 版本环境；
+2. 通过`pip`根据`requirements.txt`安装相关依赖；
+3. 如果第一次使用，项目目录下需要手动创建 `db` 文件夹；
+4. 根据[配置](#配置)设置自己的 `flomo_api` 和 `qingmang_api`；
+5. `python console_start.py`
 
 ## 配置
 
 程序相关配置主要位于 `config.py`
 
-- `token`: Telegram BOT 的 token，在 `tg@BotFather `处申请 BOT 后获得。
-- `REQUEST_KWARGS = { 'proxy_url': 'http://127.0.0.1:7890/',}` 设置用于与 Telegram 通信的代理。（只有 Telegram 使用这里设置的代理）
-- `delay`: 每次查询轻芒 API 新内容的间隔时间，单位秒。
+- `delay`: 每次同步新内容的间隔时间，单位秒；
+- `FLOMO_API`: FLOMO 发送内容 API
+- `QINGMANG_RSS_API `: 轻芒杂志 已马克内容及笔记 API
 - `message_template`: 可自定义消息的格式
 
 

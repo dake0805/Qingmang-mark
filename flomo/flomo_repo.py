@@ -2,12 +2,15 @@ import sqlite3
 
 from user import FlomoUser
 
-conn = sqlite3.connect("""../db/flomo.db""", check_same_thread=False)
+conn = sqlite3.connect("""db/flomo.db""", check_same_thread=False)
 c = conn.cursor()
 
 
 def init_flomo_data():
-    c.execute('''CREATE TABLE flomo (flomo_api text, feed_url text, last_time text)''')
+    c.execute('''
+        CREATE TABLE flomo (flomo_api text, feed_url text, last_time text,
+    unique (flomo_api), unique (feed_url))
+    ''')
     conn.commit()
 
 
@@ -28,5 +31,5 @@ def db_save(flomo_api, feed_url, last_time):
 
 def db_update_feed(flomo_api, new_update_time):
     q = [new_update_time, flomo_api]
-    c.execute('''UPDATE flomo SET last_time = ? where chat_id = ?''', q)
+    c.execute('''UPDATE flomo SET last_time = ? where flomo_api = ?''', q)
     conn.commit()

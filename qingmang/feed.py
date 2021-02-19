@@ -58,7 +58,3 @@ def x2t(xml):
     return str.strip(html2text.html2text(xml_str))
 
 
-if __name__ == '__main__':
-    a, b = update_feed("https://qingmang.me/users/37771580/feed/?secret=2c2ca3e2684411ebbac900163e2eaa9d",
-                       "Mon, 08 Feb 2021 16:32:03 +0000")
-    print()

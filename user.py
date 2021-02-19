@@ -7,6 +7,7 @@ class TelegramUser:
     feed_url: str
     last_update_time: str
 
+
 @dataclass
 class FlomoUser:
     flomo_api: str

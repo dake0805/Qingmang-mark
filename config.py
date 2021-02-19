@@ -9,12 +9,29 @@ REQUEST_KWARGS = {
 }
 
 # seconds
-delay = 100
+delay = 10
 
-# ==========================flomo==================================
-FLOMO_API = ""
+# ========================== flomo locally ==================================
+FLOMO_ON = True  # True or False
+FLOMO_API = "https://flomoapp.com/iwh/your_secret_api"
+QINGMANG_RSS_API = "https://qingmang.me/users/37771580/feed/?secret=your_secret"
 
-# ==========================format==================================
+# ========================== format ==================================
+
+message_template_flomo_1 = """
+#轻芒杂志 %s | %s
+> %s
+--------
+%s
+"""
+message_template_flomo_2 = """
+#轻芒杂志 %s | %s
+> %s
+"""
+message_template_flomo_3 = """
+#轻芒杂志 %s
+%s
+"""
 
 message_template_tg_1 = """
 <b><a href="%s">%s</a></b>
@@ -33,18 +50,3 @@ message_template_tg_2 = """
 message_template_tg_3 = """
 <b><a href="%s">%s</a></b>
               """
-
-message_template_flomo_1 = """
-#轻芒杂志 %s|%s
-> %s
---------
-%s
-"""
-message_template_flomo_2 = """
-#轻芒杂志 %s|%s
-> %s
-"""
-message_template_flomo_3 = """
-#轻芒杂志 %s
-%s
-"""

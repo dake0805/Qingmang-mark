@@ -1,7 +1,7 @@
-# 检查 feed 正确，返回 last update time
 import feedparser
 
 
+# check feed link is correct, return time of top mark.
 def add_feed(feed_url):
     try:
         feed_url
