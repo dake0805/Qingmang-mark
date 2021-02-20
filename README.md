@@ -20,15 +20,17 @@ API 示例: https://qingmang.me/users/11/feed/
 
 1. `python --version` 检查 Python 3 版本环境；
 2. 使用`pip`根据`requirements.txt`安装相关依赖 `pip install -r requirements.txt`；
+   - 注意 `pip` 版本和 `Python` 版本 (maybe use `python3` and `pip3`)
 3. 如果第一次使用，项目目录下需要手动创建 `db` 文件夹；
 4. 根据[配置](#配置)设置自己的 `flomo_api` 和 `qingmang_api`；
-5. `python console_start.py`
+5. `cd` to the project directory；
+6. `python console_start.py`
 
 ## 配置
 
 程序相关配置主要位于 `config.py`
 
-- `delay`: 每次同步新内容的间隔时间，单位秒；
+- `delay`: 每次同步新内容的间隔时间，单位秒，建议不要太短；
 - `FLOMO_API`: FLOMO 发送内容 API
 - `QINGMANG_RSS_API `: 轻芒杂志 已马克内容及笔记 API
 - `message_template`: 可自定义消息的格式
