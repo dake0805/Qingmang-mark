@@ -4,6 +4,8 @@
 
 API 示例: https://qingmang.me/users/11/feed/
 
+<b> 仅用于学习测试，已停更，实际使用请使用官方工具。 </b>
+
 ## 新版本
 Telegram BOT 暂不可用，更容易的到同步 FLOMO
 [查看文档及使用](https://github.com/dake0805/Qingmang-mark/tree/flomo_only)
